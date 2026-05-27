@@ -3,7 +3,6 @@
 import Link from "next/link";
 import {
   Card,
-  Input,
   Button,
   Checkbox,
 } from "@heroui/react";
@@ -11,6 +10,8 @@ import {  useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiEye } from "react-icons/fi";
 import { RiEyeCloseLine } from "react-icons/ri";
+import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
 const [viewPass,setViewpass] = useState(false)
@@ -20,6 +21,27 @@ const [viewPass,setViewpass] = useState(false)
     formState: { errors },
   } =useForm();
 
+
+ const handleLogin = async (data) => {
+
+
+
+     const { data:res, error } = await authClient.signIn.email({ 
+  ...data
+      ,
+   callbackURL: "/",
+      rememberMe: true,
+  }); 
+  console.log(res,error) 
+  if (error) { 
+   
+    toast.error(error.message)
+  return 
+  } else { 
+
+  toast.success("Login Successful!!!")
+    }
+  };
 
   
 
@@ -69,7 +91,7 @@ const [viewPass,setViewpass] = useState(false)
                 </p>
               </div>
 
-              <form className="space-y-5">
+              <form onSubmit={handleSubmit(handleLogin)} className="space-y-5">
 
                <fieldset className="fieldset">
             <legend className="fieldset-legend">Email</legend>
@@ -124,6 +146,7 @@ const [viewPass,setViewpass] = useState(false)
                 <Button
                   fullWidth
                   size="lg"
+                   type="submit"
                   className="bg-[#40534C] text-[#FFFDF6] font-semibold hover:bg-[#1A3636]"
                 >
                   Login

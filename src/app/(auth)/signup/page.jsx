@@ -7,8 +7,44 @@ import {
   Button,
   Checkbox,
 } from "@heroui/react";
+import { FiEye } from "react-icons/fi";
+import { RiEyeCloseLine } from "react-icons/ri";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 export default function RegisterPage() {
+ const router = useRouter();
+  const [viewPass,setViewpass] = useState(false)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+    const handleReg = async (data) => {
+
+
+    const { data:res, error } = await authClient.signUp.email({
+   ...data  }); 
+        console.log(res,error)
+       if (error)
+         { 
+         
+           toast.error(error.message)
+           return  }
+        else { 
+         toast.success("Signin Successfull!!")
+          router.push("/login")
+           
+         }
+         
+  };
+
+
   return (
     <div className="min-h-screen bg-[#FFFDF6] flex items-center justify-center px-4 py-10">
 
@@ -58,46 +94,65 @@ export default function RegisterPage() {
 
               </div>
 
-              <form className="space-y-5">
+              <form onSubmit={handleSubmit(handleReg)} className="space-y-5">
 
-                <Input
-                  type="text"
-                  label="Full Name"
-                  placeholder="Enter your name"
-                  variant="bordered"
-                  className={{
-                    inputWrapper:
-                      "border-[#A0C878] hover:border-[#40534C] bg-white",
-                  }}
-                />
+              <fieldset className="fieldset">
+            <legend className="fieldset-legend">Name</legend>
+            <input
+              type="text"
+              className="input w-full focus:ring-2 focus:ring-[#40534C]"
+              placeholder="Enter Your Name"
+              {...register("name", { required: "Name is required**" })}
+            />
+            {errors.name && (
+              <p className="text-xs text-red-500">{errors.name.message}</p>
+            )}
+          </fieldset>
 
-                <Input
-                  type="email"
-                  label="Email"
-                  placeholder="Enter your email"
-                  variant="bordered"
-                  className={{
-                    inputWrapper:
-                      "border-[#A0C878] hover:border-[#40534C] bg-white",
-                  }}
-                />
+         
 
-                <Input
-                  type="password"
-                  label="Password"
-                  placeholder="Create a password"
-                  variant="bordered"
-                  className={{
-                    inputWrapper:
-                      "border-[#A0C878] hover:border-[#40534C] bg-white",
-                  }}
-                />
+          {/* Email */}
+          <fieldset className="fieldset">
+            <legend className="fieldset-legend">Email</legend>
+            <input
+              type="email"
+              className="input w-full focus:ring-2 focus:ring-[#40534C]"
+              placeholder="Enter Your Email"
+              {...register("email", { required: "Email is required**" })}
+            />
+            {errors.email && (
+              <p className="text-xs text-red-500">{errors.email.message}</p>
+            )}
+          </fieldset>
+
+          {/* Password */}
+          <fieldset className="fieldset relative">
+            <legend className="fieldset-legend">Password</legend>
+            <input
+              type={viewPass?"text": "password"}
+              className="input w-full focus:ring-2 focus:ring-[#40534C]"
+              placeholder="Enter Your Password"
+              {...register("password", {
+                required: "Please enter password**",
+              })}
+            />
+              <span className="cursor-pointer text-xl text-[#40534C] absolute top-2 right-2" onClick={()=>setViewpass(!viewPass)}>
+                          {
+                            viewPass?<FiEye />:<RiEyeCloseLine />
+                          }
+                        </span>
+            {errors.password && (
+              <p className="text-xs text-red-500">{errors.password.message}</p>
+            )}
+          </fieldset>
+
 
                 <Checkbox size="sm">
                   I agree to the terms and conditions
                 </Checkbox>
 
                 <Button
+                type="submit"
                   fullWidth
                   size="lg"
                   className="bg-[#40534C] text-[#FFFDF6] font-semibold hover:bg-[#1A3636]"
