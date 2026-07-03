@@ -40,9 +40,9 @@ export default async function Dashboard() {
           <div className="bg-card-balance-light dark:bg-card-balance-dark border border-blue-200/30 dark:border-blue-900/20 p-5 rounded-2xl flex justify-between items-start shadow-sm">
             <div className="space-y-2">
               <p className="text-xs font-medium text-slate-400">Total Balance</p>
-              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">৳ 59,250</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">৳ 00</h3>
               <p className="text-[11px] sm:text-xs font-semibold text-txt-success flex items-center gap-1 pt-1">
-                <ArrowUpRight size={14} /> +12.5% <span className="text-slate-400 dark:text-slate-500 font-normal">from last month</span>
+                <ArrowUpRight size={14} /> 0% <span className="text-slate-400 dark:text-slate-500 font-normal">from last month</span>
               </p>
             </div>
             <span className="p-2.5 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400">
@@ -54,9 +54,9 @@ export default async function Dashboard() {
           <div className="bg-card-income-light dark:bg-card-income-dark border border-emerald-200/30 dark:border-emerald-900/20 p-5 rounded-2xl flex justify-between items-start shadow-sm">
             <div className="space-y-2">
               <p className="text-xs font-medium text-slate-400">Monthly Income</p>
-              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">৳ 82,000</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">৳ 00</h3>
               <p className="text-[11px] sm:text-xs font-semibold text-txt-success flex items-center gap-1 pt-1">
-                <ArrowUpRight size={14} /> +8.2% <span className="text-slate-400 dark:text-slate-500 font-normal">from November</span>
+                <ArrowUpRight size={14} /> 0% <span className="text-slate-400 dark:text-slate-500 font-normal">from November</span>
               </p>
             </div>
             <span className="p-2.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">
@@ -68,9 +68,9 @@ export default async function Dashboard() {
           <div className="bg-card-expense-light dark:bg-card-expense-dark border border-purple-200/30 dark:border-purple-900/20 p-5 rounded-2xl flex justify-between items-start shadow-sm">
             <div className="space-y-2">
               <p className="text-xs font-medium text-slate-400">Total Expense</p>
-              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">৳ 22,750</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">৳ 00</h3>
               <p className="text-[11px] sm:text-xs font-semibold text-txt-danger flex items-center gap-1 pt-1">
-                <ArrowDownRight size={14} /> -22% <span className="text-slate-400 dark:text-slate-500 font-normal">from November</span>
+                <ArrowDownRight size={14} /> 0% <span className="text-slate-400 dark:text-slate-500 font-normal">from November</span>
               </p>
             </div>
             <span className="p-2.5 rounded-xl bg-purple-500/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400">
@@ -82,9 +82,9 @@ export default async function Dashboard() {
           <div className="bg-card-savings-light dark:bg-card-savings-dark border border-cyan-200/30 dark:border-cyan-900/20 p-5 rounded-2xl flex justify-between items-start shadow-sm">
             <div className="space-y-2">
               <p className="text-xs font-medium text-slate-400">Savings Rate</p>
-              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">72.3%</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">0%</h3>
               <p className="text-[11px] sm:text-xs font-semibold text-blue-500 flex items-center gap-1 pt-1">
-                Above 70% target
+                Above 0% target
               </p>
             </div>
             <span className="p-2.5 rounded-xl bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400">

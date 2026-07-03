@@ -13,7 +13,7 @@ const Sidebar = () => {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme(); 
   const [mounted, setMounted] = useState(false);
-  const [isOpen, setIsOpen] = useState(false); // 👈 মোবাইল ড্রয়ার স্টেট
+  const [isOpen, setIsOpen] = useState(false); // 
 
   useEffect(() => {
     setMounted(true);
@@ -34,7 +34,6 @@ const Sidebar = () => {
     { title: "Settings", href: "/settings", icon: Settings },
   ];
 
-  // সাইডবারের ভেতরের কন্টেন্ট (যা ফিক্সড সাইডবার এবং ড্রয়ার দুটিতেই সেম থাকবে)
   const SidebarContent = () => (
     <div className="h-full flex flex-col justify-between p-4 bg-sidebar-bg">
       <div>
@@ -121,7 +120,7 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* ১. মোবাইল ও ট্যাবলেটের জন্য টপ ট্রিগার বার (যা স্ক্রল করলেও উপরে ফিক্সড থাকবে) */}
+     
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-sidebar-bg border-b border-slate-200/50 dark:border-slate-800/50 flex items-center justify-between px-4 z-40">
         <div className="flex items-center gap-3">
           <span className="bg-linear-to-tr from-blue-500 to-purple-500 p-1.5 rounded-lg text-white flex items-center justify-center">
@@ -137,12 +136,12 @@ const Sidebar = () => {
         </button>
       </div>
 
-      {/* ২. বড় স্ক্রিনের জন্য রেগুলার ডেস্কটপ সাইডবার */}
+  
       <aside className="hidden lg:flex w-64 h-screen fixed left-0 top-0 border-r border-slate-200/50 dark:border-slate-800/50 bg-sidebar-bg flex flex-col justify-between transition-colors duration-300 z-30">
         <SidebarContent />
       </aside>
 
-      {/* 🚀 ৩. মোবাইল ও ট্যাবলেটের জন্য HeroUI ড্রয়ার (আপনার দেওয়া অ্যানাটমি অনুযায়ী) */}
+  
       <Drawer isOpen={isOpen} onOpenChange={setIsOpen} placement="left" className="p-0 max-w-[280px]">
         <Drawer.Backdrop>
           <Drawer.Content className="bg-sidebar-bg h-full">

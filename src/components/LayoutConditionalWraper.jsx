@@ -1,8 +1,8 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import Navbar from "./home/Navbar";
+import Footer from "./home/Footer";
 
 
 export default function LayoutConditionalWrapper({ children }) {

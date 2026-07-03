@@ -1,16 +1,16 @@
 'use client'
 import { useState } from "react";
-import { Wallet, Menu, X } from "lucide-react"; // 👈 মোবাইল মেনুর জন্য Menu এবং X আইকন যোগ করা হয়েছে
+import { Wallet, Menu, X } from "lucide-react"; 
 import Navlink from "./Navlink";
 import { Button } from "@heroui/react";
 import Link from "next/link";
 import { useSession } from "@/lib/auth-client";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false); // 👈 মোবাইল মেনু ওপেন/ক্লোজ স্টেট
+  const [isOpen, setIsOpen] = useState(false); 
   const { data } = useSession();
   const user = data?.user;
-
+console.log(data)
   const links = [
     { title: "Home", href: "/" },
     { title: "About", href: "/about" },
@@ -21,7 +21,6 @@ const Navbar = () => {
     <nav className="bg-[#FAF6E9] border-b border-gray-200 dark:bg-[#0D0E1F] dark:border-gray-800 transition-colors duration-300 relative z-50">
       <div className="flex items-center justify-between h-20 w-11/12 mx-auto">
         
-        {/* লোগো সেকশন */}
         <Link href={"/"} className="flex gap-3 items-center z-50">
           <span className="bg-linear-to-tr from-[#3B82F6] to-[#8B5CF6] p-2.5 rounded-full text-white flex items-center justify-center">
             <Wallet size={22} />
@@ -31,7 +30,6 @@ const Navbar = () => {
           </h1>
         </Link>
 
-        {/* 💻 ডেস্কটপ নেভিগেশন লিঙ্ক (ল্যাপটপ বা বড় স্ক্রিনে দেখাবে: md:flex) */}
         <div className="hidden md:flex gap-8 items-center">
           {links.map((link) => (
             <Navlink key={link.href} href={link.href}>
@@ -40,7 +38,6 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* 💻 ডেস্কটপ বাটন সেকশন (md:flex) */}
         <div className="hidden md:flex items-center gap-6">
           {user ? (
             <h1 className="text-gray-900 dark:text-white font-medium">Hello, {user?.name}</h1>
@@ -57,7 +54,6 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* 📱 মোবাইল মেনু বাটন (ছোট স্ক্রিনে দেখাবে, বড় স্ক্রিনে হাইড থাকবে: md:hidden) */}
         <div className="md:hidden flex items-center">
           <button 
             onClick={() => setIsOpen(!isOpen)} 
@@ -68,13 +64,12 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* 📱 মোবাইল রেসপনসিভ ড্রপডাউন মেনু */}
       <div 
         className={`absolute top-20 left-0 w-full bg-[#FAF6E9] dark:bg-[#0D0E1F] border-b border-gray-200 dark:border-gray-800 p-6 space-y-6 md:hidden transition-all duration-300 ease-in-out shadow-xl ${
           isOpen ? "opacity-100 transform translate-y-0 visible" : "opacity-0 transform -translate-y-5 invisible pointer-events-none"
         }`}
       >
-        {/* মোবাইল লিঙ্কসমূহ */}
+
         <div className="flex flex-col gap-4">
           {links.map((link) => (
             <div key={link.href} onClick={() => setIsOpen(false)}>
@@ -85,7 +80,6 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* মোবাইল বাটনসমূহ */}
         <div className="flex flex-col gap-4 pt-4 border-t border-gray-200 dark:border-gray-800">
           {user ? (
             <h1 className="text-gray-900 dark:text-white font-medium text-lg">Hello, {user?.name}</h1>
