@@ -1,19 +1,20 @@
 'use client'
 import { useState, useEffect } from "react";
-import { useTheme } from "next-themes"; // 👈 next-themes ইম্পোর্ট করুন
+import { useTheme } from "next-themes"; 
 import { 
   LayoutDashboard, Wallet, ArrowDownCircle, ArrowUpCircle, 
-  Layers, Receipt, BarChart3, Bell, User, Settings, Sun, Moon, LogOut 
+  Layers, Receipt, BarChart3, Bell, User, Settings, Sun, Moon, LogOut, Menu
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Drawer } from "@heroui/react";
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme(); // 👈 থিম কন্ট্রোল করার হুক
+  const { theme, setTheme } = useTheme(); 
   const [mounted, setMounted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // 👈 মোবাইল ড্রয়ার স্টেট
 
-  // 👈 Hydration Error এড়াতে পেজ সম্পূর্ণ মাউন্ট হওয়া পর্যন্ত অপেক্ষা করবে
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -33,20 +34,17 @@ const Sidebar = () => {
     { title: "Settings", href: "/settings", icon: Settings },
   ];
 
-  return (
-    // 👈 bg-sidebar-bg-light/dark পরিবর্তন করে শুধু ডাইনামিক 'bg-sidebar-bg' করা হয়েছে
-    <aside className="w-64 h-screen fixed left-0 top-0 border-r border-slate-200/50 dark:border-slate-800/50 bg-sidebar-bg flex flex-col justify-between p-4 transition-colors duration-300">
-      
-      {/* টপ লোগো এরিয়া */}
+  // সাইডবারের ভেতরের কন্টেন্ট (যা ফিক্সড সাইডবার এবং ড্রয়ার দুটিতেই সেম থাকবে)
+  const SidebarContent = () => (
+    <div className="h-full flex flex-col justify-between p-4 bg-sidebar-bg">
       <div>
-        <div className="flex items-center gap-3 px-3 py-4 mb-4">
-          <span className="bg-gradient-to-tr from-blue-500 to-purple-500 p-2 rounded-xl text-white flex items-center justify-center shadow-lg shadow-purple-500/20">
+        <Link href={'/'} className="flex items-center gap-3 px-3 py-4 mb-4" onClick={() => setIsOpen(false)}>
+          <span className="bg-linear-to-tr from-blue-500 to-purple-500 p-2 rounded-xl text-white flex items-center justify-center shadow-lg shadow-purple-500/20">
             <Wallet size={20} />
           </span>
           <span className="text-xl font-bold tracking-wide text-slate-900 dark:text-white">FinTrack</span>
-        </div>
+        </Link>
 
-        {/* মেইন নেভিগেশন লিঙ্কের তালিকা */}
         <nav className="space-y-1">
           {menuItems.map((item) => {
             const Icon = item.icon;
@@ -56,6 +54,7 @@ const Sidebar = () => {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={() => setIsOpen(false)}
                 className={`flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                   isActive
                     ? "bg-brand-purple text-white shadow-lg shadow-purple-500/20 font-semibold"
@@ -70,7 +69,6 @@ const Sidebar = () => {
         </nav>
       </div>
 
-      {/* বটম মেনু এরিয়া (Profile, Settings, Light/Dark Mode, Logout) */}
       <div className="border-t border-slate-200/60 dark:border-slate-800/60 pt-4 space-y-1">
         {bottomItems.map((item) => {
           const Icon = item.icon;
@@ -79,6 +77,7 @@ const Sidebar = () => {
             <Link
               key={item.href}
               href={item.href}
+              onClick={() => setIsOpen(false)}
               className={`flex items-center gap-4 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
                 isActive
                   ? "bg-brand-purple text-white"
@@ -91,10 +90,9 @@ const Sidebar = () => {
           );
         })}
 
-        {/* ⚙️ ডাইনামিক থিম টগল বাটন (অফিসিয়াল গাইডলাইন অনুযায়ী ফিক্সড) */}
         {mounted ? (
           <button 
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")} // 👈 থিম টগল লজিক
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="w-full flex items-center gap-4 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 text-left transition-all"
           >
             {theme === "dark" ? (
@@ -110,18 +108,54 @@ const Sidebar = () => {
             )}
           </button>
         ) : (
-          /* মাউন্ট হওয়ার আগে লেআউট শিফটিং এড়াতে একটি ডামি বাটন স্পেস */
           <div className="h-10 w-full" />
         )}
 
-        {/* লগআউট বাটন */}
         <button className="w-full flex items-center gap-4 px-4 py-2.5 rounded-xl text-sm font-medium text-red-500 hover:bg-red-50/50 dark:hover:bg-red-950/20 text-left transition-all">
           <LogOut size={18} />
           Logout
         </button>
       </div>
+    </div>
+  );
 
-    </aside>
+  return (
+    <>
+      {/* ১. মোবাইল ও ট্যাবলেটের জন্য টপ ট্রিগার বার (যা স্ক্রল করলেও উপরে ফিক্সড থাকবে) */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-sidebar-bg border-b border-slate-200/50 dark:border-slate-800/50 flex items-center justify-between px-4 z-40">
+        <div className="flex items-center gap-3">
+          <span className="bg-linear-to-tr from-blue-500 to-purple-500 p-1.5 rounded-lg text-white flex items-center justify-center">
+            <Wallet size={16} />
+          </span>
+          <span className="text-lg font-bold tracking-wide text-slate-900 dark:text-white">FinTrack</span>
+        </div>
+        <button 
+          onClick={() => setIsOpen(true)}
+          className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+        >
+          <Menu size={22} />
+        </button>
+      </div>
+
+      {/* ২. বড় স্ক্রিনের জন্য রেগুলার ডেস্কটপ সাইডবার */}
+      <aside className="hidden lg:flex w-64 h-screen fixed left-0 top-0 border-r border-slate-200/50 dark:border-slate-800/50 bg-sidebar-bg flex flex-col justify-between transition-colors duration-300 z-30">
+        <SidebarContent />
+      </aside>
+
+      {/* 🚀 ৩. মোবাইল ও ট্যাবলেটের জন্য HeroUI ড্রয়ার (আপনার দেওয়া অ্যানাটমি অনুযায়ী) */}
+      <Drawer isOpen={isOpen} onOpenChange={setIsOpen} placement="left" className="p-0 max-w-[280px]">
+        <Drawer.Backdrop>
+          <Drawer.Content className="bg-sidebar-bg h-full">
+            <Drawer.Dialog className="h-full focus:outline-hidden">
+              <Drawer.CloseTrigger className="absolute right-4 top-5 z-50 text-slate-500 dark:text-slate-400" />
+              <Drawer.Body className="p-0 h-full overflow-y-auto">
+                <SidebarContent />
+              </Drawer.Body>
+            </Drawer.Dialog>
+          </Drawer.Content>
+        </Drawer.Backdrop>
+      </Drawer>
+    </>
   );
 };
 

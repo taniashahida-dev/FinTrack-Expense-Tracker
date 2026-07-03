@@ -10,8 +10,8 @@ export default function LayoutConditionalWrapper({ children }) {
 
  
   const isAuthPage = 
-    pathname.startsWith("/auth/login") || 
-    pathname.startsWith("/auth/signup"); 
+    pathname.startsWith("/login") || 
+    pathname.startsWith("/signup"); 
     const isDashboard = pathname.startsWith("/dashboard");
 
   return (

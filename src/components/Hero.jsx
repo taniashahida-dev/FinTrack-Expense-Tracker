@@ -5,8 +5,7 @@ const Hero = () => {
     return (
      
            <div className="space-y-5 w-11/12 md:w-4/12 mt-10 md:mt-32 mx-auto text-center ">
-<div className="absolute top-4 -right-5 h-80 w-80 rounded-full bg-[#FAF6E9] z-10"></div>
-<div className="absolute bottom-3 left-5 h-50 w-50 rounded-full bg-[#FAF6E9] z-10"></div>
+
 
             <h1 className="text-[#40534C] text-3xl md:text-6xl font-bold font-agbalumo">Track your money
 <span className="text-[#A0C878]"> smarter,</span> not harder</h1>
