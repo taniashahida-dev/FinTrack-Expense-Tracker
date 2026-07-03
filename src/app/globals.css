@@ -4,3 +4,72 @@
 .font-agbalumo {
   font-family: var(--font-agbalumo);
 }
+
+:root,
+[data-theme="light"] {
+  /* মেইন ব্যাকগ্রাউন্ড ও সাইডবার */
+  --dashboard-bg: #F4F5FA;   
+  --sidebar-bg: #FFFFFF;     
+  
+  /* ৪টি স্পেশাল কার্ড কালার */
+  --card-balance: #EBF1FF;   
+  --card-income: #E6F9F3;    
+  --card-expense: #FFEBF0;   
+  --card-savings: #EBF8FF;   
+}
+
+/* 🌙 ডার্ক মোড (Dark Theme) */
+.dark,
+[data-theme="dark"] {
+  color-scheme: dark;       /* ব্রাউজার স্ক্রলবার ও ডিফল্ট এলিমেন্ট ডার্ক করার জন্য */
+
+  /* মেইন ব্যাকগ্রাউন্ড ও সাইডবার */
+  --dashboard-bg: #0D0E1F;   
+  --sidebar-bg: #090A16;     
+  
+  /* ৪টি স্পেশাল কার্ড কালার */
+  --card-balance: #191B35;   
+  --card-income: #0F242A;    
+  --card-expense: #221225;   
+  --card-savings: #111D2D;   
+}
+
+/* ==========================================================================
+   ২. টেইলউইন্ড থিম ব্রিজ (Tailwind Theme Bridge via @theme inline)
+   ========================================================================== */
+@theme inline {
+  /* ডাইনামিক থিম কালারসমূহ */
+  --color-dashboard-bg: var(--dashboard-bg);
+  --color-sidebar-bg: var(--sidebar-bg);
+  
+  --color-card-balance: var(--card-balance);
+  --color-card-income: var(--card-income);
+  --color-card-expense: var(--card-expense);
+  --color-card-savings: var(--card-savings);
+
+  /* ফিক্সড ব্র্যান্ড, স্ট্যাটাস ও কাস্টম ফন্ট */
+  --color-brand-purple: #7C3AED;
+  --color-brand-purple-hover: #6D28D9;
+  --color-txt-success: #10B981;
+  --color-txt-danger: #EF4444;
+
+  --font-agbalumo: var(--font-agbalumo), system-ui;
+}
+
+/* Tailwind v4 ডার্ক ভ্যারিয়েন্ট কনফিগারেশন */
+@variant dark (&:where(.dark, .dark *));
+
+/* ==========================================================================
+   ৩. গ্লোবাল বেস ও কম্পোনেন্ট স্টাইল (Global Component Styles)
+   ========================================================================== */
+body {
+  /* bg-background এবং text-foreground হিরো ইউআই-এর ডিফল্ট টোকেনও ব্যবহার করতে পারেন */
+  @apply bg-dashboard-bg text-slate-800 dark:text-slate-100 transition-colors duration-300;
+}
+
+/* গ্লোবাল ড্যাশবোর্ড কার্ড ইউটিলিটি */
+@layer components {
+  .dashboard-card {
+    @apply rounded-2xl p-6 border border-slate-200/60 dark:border-slate-800/40 transition-all duration-300;
+  }
+}

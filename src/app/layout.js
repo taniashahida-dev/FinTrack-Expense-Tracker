@@ -1,8 +1,10 @@
 import { Geist, Geist_Mono, Agbalumo } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
 import { Toaster } from "react-hot-toast";
+import LayoutConditionalWrapper from "@/components/LayoutConditionalWraper";
+import { Providers } from "@/components/Providers";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,15 +30,17 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable}  ${agbalumo.variable} h-full antialiased`}
+     
+      className={`${geistSans.variable} ${geistMono.variable}  ${agbalumo.variable} h-full  dark`}suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-[#FFFDF6]">
-        <Navbar></Navbar>
-        
+      <body className=" flex flex-col min-h-screen antialiased ">
+       <Providers>
+        <LayoutConditionalWrapper>
         {children}
-        <Footer></Footer>
-
+        
+</LayoutConditionalWrapper>
           <Toaster />
+          </Providers>
         </body>
     </html>
   );
