@@ -7,10 +7,10 @@ import Link from "next/link";
 const CTA = () => {
   return (
   
-    <section className="bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:bg-none dark:bg-[#0B132B] relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden transition-colors duration-300 border-y border-slate-200 dark:border-transparent">
+    <section className="bg-linear-to-br from-indigo-50 via-white to-purple-50 dark:bg-none dark:bg-[#0B132B] relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden transition-colors duration-300 border-y border-slate-200 dark:border-transparent">
       
       
-      <div className="hidden dark:block absolute top-1/2 -left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[120px] pointer-events-none" />
+      <div className="hidden dark:block absolute top-1/2 -left-1/4 -translate-y-1/2 w-150 h-150 bg-purple-600/20 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto text-center relative z-10 space-y-8">
         
@@ -32,7 +32,7 @@ const CTA = () => {
               }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2, ease: "easeInOut" }}
-              className="group px-8 py-3.5 bg-gradient-to-r from-[#7C3AED] to-[#6366F1] text-white font-medium text-sm sm:text-base rounded-xl flex items-center gap-2 cursor-pointer shadow-lg shadow-purple-500/20 transition-all"
+              className="group px-8 py-3.5 bg-linear-to-r from-brand-purple to-[#6366F1] text-white font-medium text-sm sm:text-base rounded-xl flex items-center gap-2 cursor-pointer shadow-lg shadow-purple-500/20 transition-all"
             >
               <span>Claim Your Free Account Now</span>
               <ArrowRight 
