@@ -1,46 +1,27 @@
 "use server";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:8000";
 
-export const serverFetch = async (
-  path,
-  options = {},
-//   token
-) => {
+export const serverFetch = async (path, options = {}) => {
   const headers = {
     "Content-Type": "application/json",
   };
-
-//   if (token) {
-//     headers.Authorization = `Bearer ${token}`;
-//   }
 
   const res = await fetch(`${baseUrl}${path}`, {
     ...options,
     headers,
   });
 
-
-if (!res.ok) {
-  throw new Error(`API Error ${res.status}`);
-}
+  if (!res.ok) {
+    throw new Error(`API Error ${res.status}`);
+  }
 
   return res.json();
 };
 
-
-export const serverMutation = async (
-  path,
-  data = {},
-  method = "POST",
-//   token
-) => {
+export const serverMutation = async (path, data = {}, method = "POST") => {
   const headers = {
     "Content-Type": "application/json",
   };
-
-//   if (token) {
-//     headers.Authorization = `Bearer ${token}`;
-//   }
 
   const res = await fetch(`${baseUrl}${path}`, {
     method,

@@ -1,13 +1,7 @@
-'use client';
+"use client";
 
-import {
-  Drawer,
-  DrawerContent,
-  DrawerBody,
-} from "@heroui/react";
+import { Drawer, DrawerContent, DrawerBody } from "@heroui/react";
 import SideBar from "./SideBar";
-
-
 
 const MobileSidebar = ({ isOpen, onOpenChange }) => {
   return (

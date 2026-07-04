@@ -1,9 +1,21 @@
-'use client'
+"use client";
 import { useState, useEffect } from "react";
-import { useTheme } from "next-themes"; 
-import { 
-  LayoutDashboard, Wallet, ArrowDownCircle, ArrowUpCircle, 
-  Layers, Receipt, BarChart3, Bell, User, Settings, Sun, Moon, LogOut, Menu
+import { useTheme } from "next-themes";
+import {
+  LayoutDashboard,
+  Wallet,
+  ArrowDownCircle,
+  ArrowUpCircle,
+  Layers,
+  Receipt,
+  BarChart3,
+  Bell,
+  User,
+  Settings,
+  Sun,
+  Moon,
+  LogOut,
+  Menu,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,9 +23,9 @@ import { Drawer } from "@heroui/react";
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme(); 
+  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [isOpen, setIsOpen] = useState(false); // 
+  const [isOpen, setIsOpen] = useState(false); //
 
   useEffect(() => {
     setMounted(true);
@@ -37,11 +49,17 @@ const Sidebar = () => {
   const SidebarContent = () => (
     <div className="h-full flex flex-col justify-between p-4 bg-sidebar-bg">
       <div>
-        <Link href={'/'} className="flex items-center gap-3 px-3 py-4 mb-4" onClick={() => setIsOpen(false)}>
+        <Link
+          href={"/"}
+          className="flex items-center gap-3 px-3 py-4 mb-4"
+          onClick={() => setIsOpen(false)}
+        >
           <span className="bg-linear-to-tr from-blue-500 to-purple-500 p-2 rounded-xl text-white flex items-center justify-center shadow-lg shadow-purple-500/20">
             <Wallet size={20} />
           </span>
-          <span className="text-xl font-bold tracking-wide text-slate-900 dark:text-white">FinTrack</span>
+          <span className="text-xl font-bold tracking-wide text-slate-900 dark:text-white">
+            FinTrack
+          </span>
         </Link>
 
         <nav className="space-y-1">
@@ -60,7 +78,14 @@ const Sidebar = () => {
                     : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white"
                 }`}
               >
-                <Icon size={18} className={isActive ? "text-white" : "text-slate-400 dark:text-slate-500"} />
+                <Icon
+                  size={18}
+                  className={
+                    isActive
+                      ? "text-white"
+                      : "text-slate-400 dark:text-slate-500"
+                  }
+                />
                 {item.title}
               </Link>
             );
@@ -90,7 +115,7 @@ const Sidebar = () => {
         })}
 
         {mounted ? (
-          <button 
+          <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="w-full flex items-center gap-4 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 text-left transition-all"
           >
@@ -120,15 +145,16 @@ const Sidebar = () => {
 
   return (
     <>
-     
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-sidebar-bg border-b border-slate-200/50 dark:border-slate-800/50 flex items-center justify-between px-4 z-40">
         <div className="flex items-center gap-3">
           <span className="bg-linear-to-tr from-blue-500 to-purple-500 p-1.5 rounded-lg text-white flex items-center justify-center">
             <Wallet size={16} />
           </span>
-          <span className="text-lg font-bold tracking-wide text-slate-900 dark:text-white">FinTrack</span>
+          <span className="text-lg font-bold tracking-wide text-slate-900 dark:text-white">
+            FinTrack
+          </span>
         </div>
-        <button 
+        <button
           onClick={() => setIsOpen(true)}
           className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
         >
@@ -136,13 +162,16 @@ const Sidebar = () => {
         </button>
       </div>
 
-  
       <aside className="hidden lg:flex w-64 h-screen fixed left-0 top-0 border-r border-slate-200/50 dark:border-slate-800/50 bg-sidebar-bg flex flex-col justify-between transition-colors duration-300 z-30">
         <SidebarContent />
       </aside>
 
-  
-      <Drawer isOpen={isOpen} onOpenChange={setIsOpen} placement="left" className="p-0 max-w-70">
+      <Drawer
+        isOpen={isOpen}
+        onOpenChange={setIsOpen}
+        placement="left"
+        className="p-0 max-w-70"
+      >
         <Drawer.Backdrop>
           <Drawer.Content className="bg-sidebar-bg h-full">
             <Drawer.Dialog className="h-full focus:outline-hidden">
