@@ -6,7 +6,7 @@ const DashboardLayOut = ({ children }) => {
       style={{ "--sidebar-width": "16rem" }}
       className="flex min-h-screen w-full bg-dashboard-bg transition-colors duration-300"
     >
-      {/* রেস্পন্সিভ সাইডবার */}
+    
       <Sidebar />
 
       {/* কন্টেন্ট র‍্যাপার: মোবাইলের জন্য pt-16 এবং বড় স্ক্রিনে ml-64 */}

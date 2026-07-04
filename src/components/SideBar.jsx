@@ -21,17 +21,17 @@ const Sidebar = () => {
 
   const menuItems = [
     { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    { title: "Expenses", href: "/expenses", icon: ArrowDownCircle },
-    { title: "Income", href: "/income", icon: ArrowUpCircle },
-    { title: "Categories", href: "/categories", icon: Layers },
-    { title: "Budget", href: "/budget", icon: Receipt },
-    { title: "Analytics", href: "/analytics", icon: BarChart3 },
-    { title: "Notifications", href: "/notifications", icon: Bell },
+    { title: "Expenses", href: "/dashboard/expenses", icon: ArrowDownCircle },
+    { title: "Income", href: "/dashboard/income", icon: ArrowUpCircle },
+    { title: "Categories", href: "/dashboard/categories", icon: Layers },
+    { title: "Budget", href: "/dashboard/budget", icon: Receipt },
+    { title: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
+    { title: "Notifications", href: "/dashboard/notifications", icon: Bell },
   ];
 
   const bottomItems = [
-    { title: "Profile", href: "/profile", icon: User },
-    { title: "Settings", href: "/settings", icon: Settings },
+    { title: "Profile", href: "/dashboard/profile", icon: User },
+    { title: "Settings", href: "/dashboard/settings", icon: Settings },
   ];
 
   const SidebarContent = () => (
@@ -142,7 +142,7 @@ const Sidebar = () => {
       </aside>
 
   
-      <Drawer isOpen={isOpen} onOpenChange={setIsOpen} placement="left" className="p-0 max-w-[280px]">
+      <Drawer isOpen={isOpen} onOpenChange={setIsOpen} placement="left" className="p-0 max-w-70">
         <Drawer.Backdrop>
           <Drawer.Content className="bg-sidebar-bg h-full">
             <Drawer.Dialog className="h-full focus:outline-hidden">
