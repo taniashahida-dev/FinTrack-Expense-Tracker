@@ -4,8 +4,6 @@ import { useTheme } from "next-themes";
 import {
   LayoutDashboard,
   Wallet,
-  ArrowDownCircle,
-  ArrowUpCircle,
   Layers,
   Receipt,
   BarChart3,
@@ -15,7 +13,7 @@ import {
   Sun,
   Moon,
   LogOut,
-  Menu,
+  Menu,TrendingDown,TrendingUp
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -33,8 +31,8 @@ const Sidebar = () => {
 
   const menuItems = [
     { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    { title: "Expenses", href: "/dashboard/expenses", icon: ArrowDownCircle },
-    { title: "Income", href: "/dashboard/income", icon: ArrowUpCircle },
+    { title: "Expenses", href: "/dashboard/expenses", icon: TrendingDown },
+    { title: "Income", href: "/dashboard/income", icon: TrendingUp },
     { title: "Categories", href: "/dashboard/categories", icon: Layers },
     { title: "Budget", href: "/dashboard/budget", icon: Receipt },
     { title: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },

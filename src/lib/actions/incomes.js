@@ -4,7 +4,7 @@ import { serverMutation } from "../core/server";
 
 export const createIncome = async (incomeData) => {
   try {
-    console.log("Submitting Ebook Payload Data:", incomeData);
+    console.log("Submitting expense Data:", incomeData);
 
     const result = await serverMutation(
       "/api/incomes",
