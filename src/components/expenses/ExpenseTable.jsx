@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Table } from "@heroui/react";
 import {
   Pencil,
@@ -19,12 +20,21 @@ import {
 import EditExpenseModal from "./EditExpenseModal";
 import DeleteExpenseModal from "./DeleteExpenseModal";
 
-export default function ExpenseTable({ expenses = [], userEmail }) {
+export default function ExpenseTable({
+  expenses = [],
+  userEmail,
+  currentSearch,
+  currentCategory,
+}) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [selectedExpense, setSelectedExpense] = useState(null);
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [searchQuery, setSearchQuery] = useState("");
+
+  const [searchQuery, setSearchQuery] = useState(currentSearch);
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const categories = [
     "All",
@@ -37,6 +47,25 @@ export default function ExpenseTable({ expenses = [], userEmail }) {
     "Bills",
     "Travel",
   ];
+
+  const handleFilterChange = (key, value) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value && value !== "All") {
+      params.set(key, value);
+    } else {
+      params.delete(key);
+    }
+
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      handleFilterChange("search", searchQuery);
+    }, 400);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchQuery]);
 
   const getCategoryStyles = (category) => {
     switch (category?.toLowerCase()) {
@@ -97,16 +126,6 @@ export default function ExpenseTable({ expenses = [], userEmail }) {
     }
   };
 
-  const filteredExpenses = expenses.filter((item) => {
-    const matchesCategory =
-      activeCategory === "All" ||
-      item.category?.toLowerCase() === activeCategory.toLowerCase();
-    const matchesSearch =
-      item.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.description?.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-white dark:bg-[#0F1122]/40 p-3 rounded-2xl border border-slate-200 dark:border-gray-800/60 shadow-sm dark:shadow-none">
@@ -125,9 +144,9 @@ export default function ExpenseTable({ expenses = [], userEmail }) {
           {categories.map((cat) => (
             <button
               key={cat}
-              onClick={() => setActiveCategory(cat)}
+              onClick={() => handleFilterChange("category", cat)}
               className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
-                activeCategory === cat
+                currentCategory === cat
                   ? "bg-[#6D31ED] text-white"
                   : "bg-[#F3F4F6] dark:bg-[#161930] text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-white/10 border border-transparent dark:border-gray-800/60"
               }`}
@@ -166,7 +185,7 @@ export default function ExpenseTable({ expenses = [], userEmail }) {
             </Table.Header>
 
             <Table.Body>
-              {filteredExpenses.map((expense) => {
+              {expenses.map((expense) => {
                 const styles = getCategoryStyles(expense.category);
                 const Icon = styles.IconComponent;
 
@@ -240,7 +259,7 @@ export default function ExpenseTable({ expenses = [], userEmail }) {
         </Table.ScrollContainer>
       </Table>
 
-      {filteredExpenses.length === 0 && (
+      {expenses.length === 0 && (
         <div className="py-12 text-center text-gray-400 dark:text-gray-500 font-medium border-b border-slate-100 dark:border-gray-800/20">
           No expense records found.
         </div>

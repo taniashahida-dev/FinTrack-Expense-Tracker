@@ -5,14 +5,18 @@ import { getExpenses } from "@/lib/api/expense";
 import { getUserSession } from "@/lib/core/session";
 import { Download } from "lucide-react";
 
-export default async function ExpensesPage() {
+export default async function ExpensesPage({ searchParams }) {
   const user = await getUserSession();
   const userEmail = user?.email;
-  const expenses = (await getExpenses(userEmail)) || [];
+
+  const params = await searchParams;
+  const search = params?.search || "";
+  const category = params?.category || "All";
+
+  const expenses = (await getExpenses(userEmail, { search, category })) || [];
 
   return (
     <div className="p-6 min-h-screen flex flex-col gap-6 text-gray-900 dark:text-gray-100 bg-dashboard-bg">
-      {/* হেডার সেকশন */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Expenses</h1>
@@ -33,7 +37,12 @@ export default async function ExpensesPage() {
 
       <ExpenseStats expenses={expenses} />
 
-      <ExpenseTable expenses={expenses} userEmail={userEmail} />
+      <ExpenseTable
+        expenses={expenses}
+        userEmail={userEmail}
+        currentSearch={search}
+        currentCategory={category}
+      />
     </div>
   );
 }
