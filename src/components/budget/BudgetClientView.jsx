@@ -25,12 +25,20 @@ export default function BudgetClientView({
   displayMonthYear,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [budgetData, setBudgetData] = useState(initialData);
+ const emptyBudget = {
+  totalBudget: 0,
+  totalSpent: 0,
+  remaining: 0,
+  categoryBreakdown: [],
+};
 
-  useEffect(() => {
-    setBudgetData(initialData);
-  }, [initialData]);
+const [budgetData, setBudgetData] = useState(
+  initialData || emptyBudget
+);
 
+useEffect(() => {
+  setBudgetData(initialData || emptyBudget);
+}, [initialData]);
   const totalPercentUsed =
     budgetData.totalBudget > 0
       ? Math.round((budgetData.totalSpent / budgetData.totalBudget) * 100)
