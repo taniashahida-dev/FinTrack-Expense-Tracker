@@ -12,7 +12,7 @@ import {
   Car,
   GraduationCap,
   Clapperboard,
-  HeartPulse,
+  Heart,
   Receipt,
   Plane,
   FileText,
@@ -103,7 +103,7 @@ export default function ExpenseTable({
         return {
           bg: "bg-[#FEE2E2] dark:bg-[#EF4444]/10",
           text: "text-[#EF4444]",
-          IconComponent: HeartPulse,
+          IconComponent: Heart,
         };
       case "bills":
         return {
