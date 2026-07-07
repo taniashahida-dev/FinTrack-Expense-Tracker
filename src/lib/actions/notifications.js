@@ -57,3 +57,24 @@ export const deleteNotification = async (id, userEmail) => {
     return { success: false, error: error.message };
   }
 };
+
+export async function saveUserSettings(email, settings) {
+  try {
+    const result = await serverMutation(`/api/user-settings`, {email, settings},"PATCH",);
+
+    return result
+  } catch (error) {
+    console.error("Error saving settings:", error);
+    return { success: false };
+  }
+}
+
+export async function resetUserData(email) {
+  try {
+    const result = await serverMutation(`/api/reset-data?email=${email}`, {},"DELETE")
+    return result
+  } catch (error) {
+    console.error("Error resetting data:", error);
+    return { success: false };
+  }
+}

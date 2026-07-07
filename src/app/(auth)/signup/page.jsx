@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Card, Button, Checkbox } from "@heroui/react";
+import { Card, Button } from "@heroui/react";
 import { FiEye, FiMail, FiLock, FiUser } from "react-icons/fi";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { useRouter } from "next/navigation";
@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 export default function RegisterPage() {
   const router = useRouter();
   const [viewPass, setViewpass] = useState(false);
+  const [agreeTerms, setAgreeTerms] = useState(false);
 
   const {
     register,
@@ -38,10 +39,8 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-dashboard-bg flex flex-col items-center justify-center px-4 py-12 transition-colors duration-300">
-      
-      {/* টপ লোগো ও হেডার */}
       <div className="flex flex-col items-center mb-8 text-center space-y-3">
-        <span className="bg-gradient-to-tr from-blue-500 to-purple-500 p-3.5 rounded-2xl text-white flex items-center justify-center shadow-xl shadow-purple-500/20">
+        <span className="bg-linear-to-tr from-blue-500 to-purple-500 p-3.5 rounded-2xl text-white flex items-center justify-center shadow-xl shadow-purple-500/20">
           <Wallet size={28} />
         </span>
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
@@ -52,15 +51,16 @@ export default function RegisterPage() {
         </p>
       </div>
 
-      {/* মেইন ফর্ম কার্ড */}
       <Card className="w-full max-w-md p-6 sm:p-8 bg-sidebar-bg border border-slate-200/60 dark:border-slate-800/50 shadow-xl rounded-2xl transition-all">
         <form onSubmit={handleSubmit(handleReg)} className="space-y-5">
-          
-          {/* নাম ইনপুট */}
           <fieldset className="fieldset flex flex-col gap-1.5">
-            <legend className="text-sm font-medium text-slate-700 dark:text-slate-300">Full Name</legend>
+            <legend className="text-sm font-medium text-slate-700 dark:text-slate-300">
+              Full Name
+            </legend>
             <div className="relative flex items-center">
-              <span className="absolute left-4 text-slate-400"><FiUser size={18} /></span>
+              <span className="absolute left-4 text-slate-400">
+                <FiUser size={18} />
+              </span>
               <input
                 type="text"
                 className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-purple text-slate-900 dark:text-white transition-all"
@@ -73,11 +73,14 @@ export default function RegisterPage() {
             )}
           </fieldset>
 
-          {/* ইমেইল ইনপুট */}
           <fieldset className="fieldset flex flex-col gap-1.5">
-            <legend className="text-sm font-medium text-slate-700 dark:text-slate-300">Email Address</legend>
+            <legend className="text-sm font-medium text-slate-700 dark:text-slate-300">
+              Email Address
+            </legend>
             <div className="relative flex items-center">
-              <span className="absolute left-4 text-slate-400"><FiMail size={18} /></span>
+              <span className="absolute left-4 text-slate-400">
+                <FiMail size={18} />
+              </span>
               <input
                 type="email"
                 className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-purple text-slate-900 dark:text-white transition-all"
@@ -86,41 +89,59 @@ export default function RegisterPage() {
               />
             </div>
             {errors.email && (
-              <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>
+              <p className="text-xs text-red-500 mt-1">
+                {errors.email.message}
+              </p>
             )}
           </fieldset>
 
-          {/* পাসওয়ার্ড ইনপুট */}
           <fieldset className="fieldset flex flex-col gap-1.5 relative">
-            <legend className="text-sm font-medium text-slate-700 dark:text-slate-300">Password</legend>
+            <legend className="text-sm font-medium text-slate-700 dark:text-slate-300">
+              Password
+            </legend>
             <div className="relative flex items-center">
-              <span className="absolute left-4 text-slate-400"><FiLock size={18} /></span>
+              <span className="absolute left-4 text-slate-400">
+                <FiLock size={18} />
+              </span>
               <input
                 type={viewPass ? "text" : "password"}
                 className="w-full pl-11 pr-12 py-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-purple text-slate-900 dark:text-white transition-all"
                 placeholder="••••••••"
-                {...register("password", { required: "Please enter password**" })}
+                {...register("password", {
+                  required: "Please enter password**",
+                })}
               />
-              <span 
-                className="cursor-pointer text-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 absolute right-4" 
+              <span
+                className="cursor-pointer text-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 absolute right-4"
                 onClick={() => setViewpass(!viewPass)}
               >
                 {viewPass ? <FiEye /> : <RiEyeCloseLine />}
               </span>
             </div>
             {errors.password && (
-              <p className="text-xs text-red-500 mt-1">{errors.password.message}</p>
+              <p className="text-xs text-red-500 mt-1">
+                {errors.password.message}
+              </p>
             )}
           </fieldset>
 
-          {/* টার্মস অ্যান্ড কন্ডিশনস চ্যকবক্স */}
-          <div className="pt-1">
-            <Checkbox size="sm" classNames={{ label: "text-slate-500 dark:text-slate-400 select-none text-xs sm:text-sm" }}>
+          <div className="flex items-center gap-2 py-2">
+            <input
+              type="checkbox"
+              id="agreeTerms"
+              checked={agreeTerms}
+              onChange={(e) => setAgreeTerms(e.target.checked)}
+              className="w-4 h-4 rounded-md border-gray-300 text-[#7c5dfa] focus:ring-violet-100 cursor-pointer"
+            />
+
+            <label
+              htmlFor="agreeTerms"
+              className="text-xs font-medium text-slate-600 dark:text-slate-400 cursor-pointer select-none"
+            >
               I agree to the terms and conditions
-            </Checkbox>
+            </label>
           </div>
 
-          {/* সাবমিট বাটন */}
           <Button
             fullWidth
             size="lg"
@@ -130,14 +151,14 @@ export default function RegisterPage() {
             Create Account
           </Button>
 
-          {/* ডিভাইডার */}
           <div className="relative flex py-2 items-center text-xs text-slate-400 dark:text-slate-600">
-            <div className="flex-grow border-t border-slate-200 dark:border-slate-800"></div>
-            <span className="flex-shrink mx-4 uppercase tracking-wider font-semibold">Or signup with</span>
-            <div className="flex-grow border-t border-slate-200 dark:border-slate-800"></div>
+            <div className="grow border-t border-slate-200 dark:border-slate-800"></div>
+            <span className="shrink mx-4 uppercase tracking-wider font-semibold">
+              Or signup with
+            </span>
+            <div className="grow border-t border-slate-200 dark:border-slate-800"></div>
           </div>
 
-          {/* গুগল সোশাল বাটন */}
           <Button
             fullWidth
             variant="flat"
@@ -150,10 +171,12 @@ export default function RegisterPage() {
           </Button>
         </form>
 
-        {/* লগইন লিঙ্ক */}
         <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-6">
           Already have an account?{" "}
-          <Link href="/login" className="text-brand-purple font-semibold hover:underline">
+          <Link
+            href="/login"
+            className="text-brand-purple font-semibold hover:underline"
+          >
             Login
           </Link>
         </p>
