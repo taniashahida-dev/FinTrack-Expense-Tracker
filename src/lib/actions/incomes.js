@@ -36,18 +36,13 @@ export const updateIncome = async (id, incomeData) => {
 
 export const deleteIncome = async (id, userEmail) => {
   try {
-    const headers = { "Content-Type": "application/json" };
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:8000";
     
-    const res = await fetch(`${baseUrl}/api/incomes/${id}?userEmail=${userEmail}`, {
-      method: "DELETE",
-      headers,
-    });
-
-    if (!res.ok) throw new Error(`API Error ${res.status}`);
-    return await res.json();
+    const result = await serverMutation(`/api/incomes/${id}?userEmail=${userEmail}`, {}, "DELETE" );
+    
+    return result
   } catch (error) {
     console.error("deleteIncome Action Error:", error);
     return { success: false, error: error.message };
   }
 };
+

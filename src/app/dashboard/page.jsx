@@ -8,7 +8,7 @@ export default async function Dashboard() {
  const email = user?.email
  
   const dashboardData =await getDashoardData(email)
-console.log(dashboardData)
+// console.log(dashboardData)
   return (
     <DashboardClientView 
       user={user} 

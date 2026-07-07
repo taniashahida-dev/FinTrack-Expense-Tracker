@@ -357,7 +357,7 @@ export default function DashboardClientView({ user, initialData }) {
                         )}
                       </span>
                       <div>
-                        <p className="text-xs font-bold max-w-[180px] sm:max-w-xs truncate">
+                        <p className="text-xs font-bold max-w-45 sm:max-w-xs truncate">
                           {tx.title}
                         </p>
                         <p className="text-[10px] text-gray-400 capitalize">
